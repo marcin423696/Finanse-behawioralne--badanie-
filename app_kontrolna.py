@@ -1,5 +1,4 @@
-# app.py
-# Stabilna wersja badania – walidacja, czas reakcji, kapitał, losowe wyniki dla niepewnych opcji
+
 
 from flask import Flask, render_template_string, request, redirect, session
 import csv, os, uuid, time, random, re
@@ -9,8 +8,7 @@ app.secret_key = "VERY_SECRET_KEY"
 
 RESULTS_FILE = "wyniki.csv"
 
-# ================= PYTANIA =================
-# correct = odpowiedź racjonalna wg teorii (TYLKO DO TWOJEJ WIEDZY)
+
 QUESTIONS = [
     {
     "id": 0,
@@ -140,7 +138,7 @@ def save_result(row):
             writer.writeheader()
         writer.writerow(row)
 
-# ================= FUNKCJE =================
+
 
 
 def apply_capital_change(current_capital, q_id, selected_answer):
@@ -173,7 +171,6 @@ def apply_capital_change(current_capital, q_id, selected_answer):
 
 
 
-# ================= ROUTES =================
 
 @app.route('/', methods=['GET', 'POST'])
 def intro():
@@ -247,7 +244,6 @@ def question():
 
         return redirect('/break')
 
-    # GET → ustaw start_time
     session['start_time'] = time.time()
     return render_template_string(QUESTION_HTML, q=q, capital=session['capital'])
 
@@ -285,7 +281,6 @@ def end():
 )
 
 
-# ================= HTML =================
 
 INTRO_HTML = """
 <h2>Dane wstępne</h2>
@@ -428,7 +423,6 @@ END_HTML = """
 
 """
 
-# ================= RUN =================
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5001)
